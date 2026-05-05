@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cascade Ops Creative — The Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ECEAE4;
+  --paper: #F8F7F4;
+  --ink: #1E2329;
+  --mid: #556070;
+  --faint: #A8B4BE;
+  --gold: #6A5C32;
+  --gold-bg: #F2EDD8;
+  --green: #4A7C6F;
+  --green-bg: #E6F2EE;
+  --red: #7A3A3A;
+  --red-bg: #F2E8E8;
+  --blue: #2E5266;
+  --blue-bg: #E4EDF4;
+  --border: #C8CDD4;
+  --check-done: #4A7C6F;
+  --phase-1: #2E5266;
+  --phase-2: #4A7C6F;
+  --phase-3: #5A6E7A;
+  --phase-4: #3D6657;
+  --phase-5: #3A4E68;
+  --slate: #3A4A5A;
+  --sage: #4A7C6F;
+  --cream: #ECEAE4;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── STICKY NAV ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(236,234,228,0.97);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.6rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+nav::-webkit-scrollbar { display: none; }
+
+.nav-phase {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mid);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.nav-phase:hover { background: var(--border); color: var(--ink); }
+.nav-phase.p1 { color: var(--phase-1); }
+.nav-phase.p2 { color: var(--phase-2); }
+.nav-phase.p3 { color: var(--phase-3); }
+.nav-phase.p4 { color: var(--phase-4); }
+.nav-phase.p5 { color: var(--phase-5); }
+
+.nav-dot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+}
+
+/* ── HERO ── */
+.hero {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 4rem 2rem 2rem;
+}
+
+.hero-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--sage, #4A7C6F);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.hero-tag::before {
+  content: '';
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background: var(--sage, #4A7C6F);
+}
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+}
+h1 em { font-style: italic; color: var(--sage, #4A7C6F); }
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--mid);
+  max-width: 600px;
+  line-height: 1.75;
+  margin-bottom: 2rem;
+}
+
+.progress-bar-wrap {
+  background: var(--border);
+  height: 4px;
+  border-radius: 2px;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: var(--sage, #4A7C6F);
+  border-radius: 2px;
+  width: 0%;
+  transition: width 0.4s ease;
+}
+.progress-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--mid);
+}
+
+/* ── PHASE BLOCK ── */
+.phase-block {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 2rem 3rem;
+}
+
+.phase-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  padding-top: 3rem;
+  border-top: 2px solid var(--border);
+  position: relative;
+}
+
+.phase-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  font-weight: 600;
+  line-height: 1;
+  opacity: 0.12;
+  flex-shrink: 0;
+  margin-top: -0.25rem;
+}
+
+.phase-meta {}
+.phase-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.4rem;
+}
+h2 em { font-style: italic; }
+
+.phase-time {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--mid);
+}
+
+/* ── STEP ── */
+.step {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--border);
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: border-left-color 0.2s;
+}
+.step.done { border-left-color: var(--check-done); }
+.step.done .step-header { opacity: 0.6; }
+
+.step-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.step-check {
+  width: 22px; height: 22px;
+  border: 1.5px solid var(--faint);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: all 0.2s;
+  cursor: pointer;
+  font-size: 11px;
+  color: transparent;
+}
+.step.done .step-check {
+  background: var(--check-done);
+  border-color: var(--check-done);
+  color: white;
+}
+
+.step-title-wrap { flex: 1; }
+
+.step-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 0.2rem;
+}
+
+.step-title {
+  font-size: 0.97rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.step-toggle {
+  font-size: 1rem;
+  color: var(--faint);
+  flex-shrink: 0;
+  transition: transform 0.2s;
+  margin-top: 3px;
+}
+.step.open .step-toggle { transform: rotate(180deg); }
+
+.step-body {
+  display: none;
+  padding: 0 1.25rem 1.25rem 3.85rem;
+}
+.step.open .step-body { display: block; }
+
+.step-body p {
+  font-size: 0.92rem;
+  color: var(--mid);
+  line-height: 1.75;
+  margin-bottom: 0.75rem;
+}
+.step-body p:last-child { margin-bottom: 0; }
+
+/* Sub-steps */
+.substeps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0.75rem 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.substep {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.substep:last-child { border-bottom: none; }
+.substep:hover { background: var(--bg); }
+
+.substep-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--faint);
+  flex-shrink: 0;
+  padding-top: 2px;
+  min-width: 20px;
+}
+.substep-text { flex: 1; }
+.substep-check {
+  width: 16px; height: 16px;
+  border: 1px solid var(--faint);
+  border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 10px;
+  color: transparent;
+  margin-top: 2px;
+  transition: all 0.2s;
+}
+.substep.done .substep-check {
+  background: var(--check-done);
+  border-color: var(--check-done);
+  color: white;
+}
+.substep.done .substep-text {
+  text-decoration: line-through;
+  color: var(--faint);
+}
+
+/* Callout boxes */
+.callout {
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  margin: 0.75rem 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+.callout-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 0.35rem;
+}
+.callout.tip { background: var(--green-bg); color: #1A4035; }
+.callout.tip .callout-label { color: var(--green); }
+.callout.warn { background: var(--gold-bg); color: #5C4005; }
+.callout.warn .callout-label { color: var(--gold); }
+.callout.danger { background: var(--red-bg); color: #5A1520; }
+.callout.danger .callout-label { color: var(--red); }
+.callout.info { background: var(--blue-bg); color: #0E2F45; }
+.callout.info .callout-label { color: var(--blue); }
+
+/* Link chips */
+.link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+.link-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 0.3rem 0.85rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: var(--blue);
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.link-chip:hover { background: var(--blue-bg); border-color: var(--blue); }
+.link-chip::before { content: '→'; font-size: 0.75rem; }
+
+/* Phase color overrides */
+.p1 .phase-num, .p1 .phase-label { color: var(--phase-1); }
+.p1 .step { border-left-color: transparent; }
+.p1 .step.done { border-left-color: var(--phase-1); }
+.p1 .step.done .step-check { background: var(--phase-1); border-color: var(--phase-1); }
+.p1 .substep.done .substep-check { background: var(--phase-1); border-color: var(--phase-1); }
+
+.p2 .phase-label { color: var(--phase-2); }
+.p2 .step.done { border-left-color: var(--phase-2); }
+.p2 .step.done .step-check { background: var(--phase-2); border-color: var(--phase-2); }
+.p2 .substep.done .substep-check { background: var(--phase-2); border-color: var(--phase-2); }
+
+.p3 .phase-label { color: var(--phase-3); }
+.p3 .step.done { border-left-color: var(--phase-3); }
+.p3 .step.done .step-check { background: var(--phase-3); border-color: var(--phase-3); }
+.p3 .substep.done .substep-check { background: var(--phase-3); border-color: var(--phase-3); }
+
+.p4 .phase-label { color: var(--phase-4); }
+.p4 .step.done { border-left-color: var(--phase-4); }
+.p4 .step.done .step-check { background: var(--phase-4); border-color: var(--phase-4); }
+.p4 .substep.done .substep-check { background: var(--phase-4); border-color: var(--phase-4); }
+
+.p5 .phase-label { color: var(--phase-5); }
+.p5 .step.done { border-left-color: var(--phase-5); }
+.p5 .step.done .step-check { background: var(--phase-5); border-color: var(--phase-5); }
+.p5 .substep.done .substep-check { background: var(--phase-5); border-color: var(--phase-5); }
+
+/* Summary box */
+.summary-box {
+  background: var(--slate, #3A4A5A);
+  color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+.summary-box h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 1rem;
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 0.88rem;
+}
+.summary-row:last-child { border-bottom: none; }
+.summary-row .s-label { color: rgba(255,255,255,0.5); }
+.summary-row .s-val { font-family: 'DM Mono', monospace; color: rgba(255,255,255,0.9); font-size: 0.82rem; }
+
+/* Phase intro */
+.phase-intro {
+  font-size: 0.97rem;
+  color: var(--mid);
+  line-height: 1.75;
+  margin-bottom: 1.75rem;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--sage, #4A7C6F);
+}
+
+/* Footer */
+footer {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--faint);
+  text-transform: uppercase;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 600px) {
+  nav { padding: 0.5rem 1rem; }
+  .hero, .phase-block { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .step-body { padding-left: 1rem; }
+  .phase-num { display: none; }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero { animation: fadeIn 0.5s ease both; }
+
+/* ── CASCADE OPS CREATIVE BRAND ADDITIONS ── */
+
+/* Brand bar refinement */
+.brand-bar { letter-spacing: 0.2em; }
+
+/* Bolder headings for confident feel */
+h1 { font-weight: 700; font-size: clamp(2.8rem, 6vw, 4.2rem); }
+h2 { font-weight: 700; font-size: clamp(1.8rem, 3.5vw, 2.6rem); }
+
+/* Phase headers: left accent line */
+.phase-header { border-left: 4px solid var(--sage, #4A7C6F); padding-left: 1.5rem; }
+
+/* Step done state: sage left border */
+.step.done { background: #F4F8F6; }
+
+/* Nav brand feel */
+nav { border-bottom: 2px solid var(--ink); }
+
+/* Phase num: slate tone */
+.phase-num { color: var(--slate, #3A4A5A); opacity: 0.15; font-weight: 700; font-size: 4rem; }
+
+/* Summary box: left accent */
+.summary-box { border-left: 5px solid var(--sage, #4A7C6F); border-radius: 0 8px 8px 0; }
+.summary-box h3 { font-size: 1.5rem; letter-spacing: -0.01em; }
+
+/* Callout tip -> sage tones */
+.callout.tip { border-left: 3px solid var(--sage, #4A7C6F); border-radius: 0 6px 6px 0; }
+.callout.info { border-left: 3px solid var(--blue, #2E5266); border-radius: 0 6px 6px 0; }
+.callout.warn { border-left: 3px solid var(--gold, #6A5C32); border-radius: 0 6px 6px 0; }
+.callout.danger { border-left: 3px solid var(--red, #7A3A3A); border-radius: 0 6px 6px 0; }
+
+/* Hero: bold confident spacing */
+.hero { padding-top: 5rem; border-bottom: 1px solid var(--border); margin-bottom: 0; padding-bottom: 3rem; }
+
+/* Progress bar label: uppercase tracking */
+.progress-label { text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.6rem; }
+
+/* Step title: slightly bolder */
+.step-title { font-weight: 500; font-size: 1rem; }
+
+/* Phase intro: sage left border */
+.phase-intro { border-left: 3px solid var(--sage, #4A7C6F); background: rgba(74,124,111,0.04); border-radius: 0 4px 4px 0; }
+
+/* Substep done: sage */
+.substep.done .substep-text { color: var(--faint); }
+
+/* Footer: slate background */
+footer {
+  background: var(--slate, #3A4A5A);
+  color: rgba(200,212,204,0.5);
+  max-width: 100%;
+  padding: 1.5rem 2rem;
+  border-top: none;
+  margin-top: 3rem;
+}
+
+</style>
+</head>
+<body>
+
+<!-- BRAND BAR -->
+<div style="background:var(--slate,#3A4A5A);padding:0.6rem 2rem;display:flex;align-items:center;justify-content:space-between;">
+  <div style="display:flex;align-items:center;gap:0.75rem;">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M11 2 L19 8 L19 20 L3 20 L3 8 Z" stroke="#4A7C6F" stroke-width="1.5" fill="none"/>
+      <path d="M7 20 L7 13 L15 13 L15 20" stroke="#4A7C6F" stroke-width="1.5" fill="none"/>
+      <path d="M11 2 L4 7" stroke="#4A7C6F" stroke-width="1" opacity="0.5"/>
+    </svg>
+    <span style="font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:#C8D4CC;font-weight:500;">Cascade Ops Creative</span>
+  </div>
+  <span style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,212,204,0.45);">The Playbook</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#phase-1" class="nav-phase p1"><span class="nav-dot" style="background:var(--phase-1)"></span>Phase 1: Foundation</a>
+  <a href="#phase-2" class="nav-phase p2"><span class="nav-dot" style="background:var(--phase-2)"></span>Phase 2: Build</a>
+  <a href="#phase-3" class="nav-phase p3"><span class="nav-dot" style="background:var(--phase-3)"></span>Phase 3: Launch</a>
+  <a href="#phase-4" class="nav-phase p4"><span class="nav-dot" style="background:var(--phase-4)"></span>Phase 4: Engine</a>
+  <a href="#phase-5" class="nav-phase p5"><span class="nav-dot" style="background:var(--phase-5)"></span>Phase 5: Scale</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Cascade Ops Creative · The complete operating manual</div>
+  <h1>From zero to<br><em>running machine.</em></h1>
+  <p class="hero-sub">Every step. Every click. Every account to create. Written so clearly that if you follow it in order, you will have a functioning digital product business at the end. No steps skipped. No "figure it out" gaps.</p>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-fill"></div>
+  </div>
+  <div class="progress-label"><span id="progress-text">0 of 0 steps complete</span></div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PHASE 1 — FOUNDATION
+═══════════════════════════════════════════ -->
+<div class="phase-block p1" id="phase-1">
+  <div class="phase-header">
+    <div class="phase-num">1</div>
+    <div class="phase-meta">
+      <div class="phase-label">Phase 1</div>
+      <h2>Foundation<br><em>before you build anything</em></h2>
+      <div class="phase-time">Week 1 · ~6 hours total · Do this before touching Canva</div>
+    </div>
+  </div>
+
+  <div class="phase-intro">This phase is the part most people skip because it feels like "not doing the real thing yet." It is the real thing. Every decision you make here determines whether you waste 3 months building the wrong product for the wrong people at the wrong price.</div>
+
+  <!-- STEP 1.1 -->
+  <div class="step" id="s1">
+    <div class="step-header" onclick="toggleStep('s1')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s1')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 1.1</div>
+        <div class="step-title">Decide your exact niche — write it in one sentence</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>You are not selling "social media templates." You are selling a specific solution for a specific person. The more specific you are, the more your buyer feels like you made this for them. That feeling is what closes sales.</p>
+      <p>Based on your background, your best niche is: <strong>Social media content systems for service-based small business owners</strong> — people who have a business (cleaning, notary, contractor, consultant, real estate agent) but have no idea what to post or how to sound professional online.</p>
+      <div class="callout tip">
+        <div class="callout-label">Your niche sentence</div>
+        "I make done-for-you social media templates for small service business owners who want to look professional online without hiring a designer or spending hours figuring out what to post."
+      </div>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text">Write your niche sentence in a notebook or notes app. Don't move on until you've written it down.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text">Say it out loud. If it sounds vague or like it could be for everyone, tighten it. "Small business owners" is fine. "People who want better content" is not.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text">Ask yourself: do I actually know this person's problems? You run a notary business. You've managed 6 direct reports. You know what service business owners struggle to communicate. That's a yes.</div><div class="substep-check">✓</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 1.2 -->
+  <div class="step" id="s2">
+    <div class="step-header" onclick="toggleStep('s2')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s2')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 1.2</div>
+        <div class="step-title">Research Etsy for 90 minutes — understand the market before you make anything</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>Go to Etsy.com. You are not buying anything. You are studying what already sells. This 90-minute session will save you from building a product nobody wants.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text">Go to etsy.com and search: "small business social media templates"</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text">Sort by "Most relevant." Look at the first 20 listings. Write down: the title, the price, and how many reviews it has.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text">Click the 3 listings with the most reviews. Read every review. Write down exactly what words buyers use to describe what they loved or what was missing. These words are your future marketing copy.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">4</div><div class="substep-text">Now search: "canva templates service business" and "Instagram templates for business owners" — repeat the same review-reading for top sellers.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">5</div><div class="substep-text">Look for gaps: What are reviewers asking for that doesn't seem to exist yet? Write those down. Those are product ideas.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">6</div><div class="substep-text">Write down the price range you see for bundles of 20+ templates. You'll likely see $9–47. Note that top sellers with credibility charge $47–97.</div><div class="substep-check">✓</div></div>
+      </div>
+      <div class="callout warn">
+        <div class="callout-label">What you're looking for</div>
+        Shops with 500–5,000 listings of the same type = proven demand. Shops with 10,000+ reviews = the market is real but competitive. Your job is not to beat them on volume — it's to win on specificity and credibility.
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 1.3 -->
+  <div class="step" id="s3">
+    <div class="step-header" onclick="toggleStep('s3')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s3')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 1.3</div>
+        <div class="step-title">Set up your accounts — Canva, Gumroad, Etsy, Pinterest, email list</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>You need these five accounts. Do them in this order. Each one has a specific role. None of them cost money to start.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text"><strong>Canva Pro:</strong> Go to canva.com. Sign up with your Google or email. Start the free trial of Canva Pro ($13/month after trial). You need Pro for the Brand Kit and premium elements. Worth every penny.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text"><strong>Gumroad:</strong> Go to gumroad.com. Click "Start selling." Enter your name, email, and a password. This is where your main products will live. Free to start — they take 10% of sales.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text"><strong>Etsy:</strong> Go to etsy.com. Click "Sell on Etsy." Follow the setup prompts. Choose a shop name. Recommendation: use your brand name + "Shop" or "Studio" (example: "CascadeOpsShop"). You'll need to enter payment details but don't pay anything until you list.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">4</div><div class="substep-text"><strong>Pinterest Business:</strong> Go to pinterest.com/business/create. Sign up for a free business account. Use the same email as Gumroad. This becomes your long-term SEO engine. Set your business category to "Education" or "Business Services."</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">5</div><div class="substep-text"><strong>Email list (Kit, formerly ConvertKit):</strong> Go to kit.com. Sign up for the free plan — free up to 10,000 subscribers. Create your account. You'll use this to send emails to buyers and leads. Do NOT skip this. Your email list is the only asset you truly own.</div><div class="substep-check">✓</div></div>
+      </div>
+      <div class="callout danger">
+        <div class="callout-label">Do not do this yet</div>
+        Do not spend money on Shopify, a custom domain, or a website builder. You don't need any of that until you're making $2,000/month consistently. Every dollar spent before first sale is a distraction.
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 1.4 -->
+  <div class="step" id="s4">
+    <div class="step-header" onclick="toggleStep('s4')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s4')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 1.4</div>
+        <div class="step-title">Create your brand identity in Canva — colors, fonts, logo</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>You need a consistent visual identity across all your products. This doesn't mean hiring a designer. It means picking 3 colors and 2 fonts and using them on everything. Consistency reads as professionalism.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text">In Canva, click your account name → "Brand Kit" → "Add new brand kit." Name it your business name.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text">Pick 3 brand colors. Recommendation for professional credibility: one dark neutral (navy, charcoal, or deep forest green), one warm accent (gold, warm rust, or terracotta), and white. Avoid pastels if your buyer is a business professional.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text">Pick 2 fonts. One serif (like Playfair Display or Lora) for headlines. One clean sans-serif (like DM Sans or Jost) for body text. Add both to your Brand Kit.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">4</div><div class="substep-text">Create a simple logo. In Canva, search "logo" in templates. Pick one that's text-based (just your business name in your brand font). Keep it simple. You can refine later — don't spend more than 30 minutes on this.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">5</div><div class="substep-text">Download your logo as a PNG (transparent background). Upload it to your Canva Brand Kit. Now every template you build can use it with one click.</div><div class="substep-check">✓</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 1.5 -->
+  <div class="step" id="s5">
+    <div class="step-header" onclick="toggleStep('s5')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s5')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 1.5</div>
+        <div class="step-title">Plan your first product — decide exactly what's in it before you open Canva</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>Most people open Canva and start making things. Then they make 50 templates with no coherent theme, price it wrong, and wonder why nothing sells. Plan first. Design second.</p>
+      <div class="callout info">
+        <div class="callout-label">Your first product</div>
+        <strong>"The Service Business Social Starter Pack"</strong> — 30 Canva templates for service-based small business owners. Price: $47. Delivery: instant download via Gumroad + Etsy.
+      </div>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text">Write a list of 30 post types your buyer actually needs. Examples: "Meet the team" post, client testimonial quote, service spotlight, before/after outcome, "why I started my business" story, FAQ post, review screenshot template, seasonal promotion, referral ask, milestone announcement.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text">Group your 30 into 6 categories of 5 templates each: Introductions (5), Social Proof (5), Services (5), Educational/Tips (5), Promotions (5), Community/Stories (5). This structure becomes your sales copy later.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text">Decide the sizes. Make each template in 3 sizes: Square (1080×1080) for Instagram feed, Vertical (1080×1350) for Instagram/Facebook, and Story (1080×1920). That turns 30 designs into 90 files — which sounds more valuable and is.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">4</div><div class="substep-text">Write your product description now, before you design. Describe the problem ("You know you should be posting but you have no idea what to say..."), what's included (30 templates, 3 sizes each = 90 total files), and who it's for. This keeps you honest while designing.</div><div class="substep-check">✓</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <h3>Phase 1 complete when...</h3>
+    <div class="summary-row"><span class="s-label">Niche sentence written</span><span class="s-val">Done and specific</span></div>
+    <div class="summary-row"><span class="s-label">Etsy research</span><span class="s-val">90 min, notes taken</span></div>
+    <div class="summary-row"><span class="s-label">All 5 accounts created</span><span class="s-val">Canva, Gumroad, Etsy, Pinterest, Kit</span></div>
+    <div class="summary-row"><span class="s-label">Brand identity</span><span class="s-val">Colors, fonts, logo in Canva Brand Kit</span></div>
+    <div class="summary-row"><span class="s-label">Product plan</span><span class="s-val">30 templates listed, grouped, described</span></div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PHASE 2 — BUILD
+═══════════════════════════════════════════ -->
+<div class="phase-block p2" id="phase-2">
+  <div class="phase-header">
+    <div class="phase-num">2</div>
+    <div class="phase-meta">
+      <div class="phase-label">Phase 2</div>
+      <h2>Build your<br><em>first product</em></h2>
+      <div class="phase-time">Week 2 · ~10 hours total · The only thing that matters this week</div>
+    </div>
+  </div>
+
+  <div class="phase-intro">This is where most people either sprint too fast (making sloppy templates that get bad reviews) or freeze (spending 3 weeks on one template). Your target: 30 good templates in 7 days. Not perfect. Good.</div>
+
+  <!-- STEP 2.1 -->
+  <div class="step" id="s6">
+    <div class="step-header" onclick="toggleStep('s6')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s6')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 2.1</div>
+        <div class="step-title">Build your master template in Canva — the one design system for all 30</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>Don't build 30 different designs. Build one design system — a consistent visual framework — and apply it 30 ways. This is how professional template sellers produce at speed without sacrificing quality.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text">In Canva, create a new design. Set size to 1080×1080 px. This is your "master" layout.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text">Design a clean, editable layout: a background (solid color or simple pattern using only your 3 brand colors), a clear space for the headline, a space for body text, your logo in the corner. That's it. No decorative clutter.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text">CRITICAL: Use only free Canva elements (or confirm you have a Pro license for any premium ones). If you use a Pro element and your buyer doesn't have Canva Pro, they can't edit it. This causes bad reviews. Stick to free elements unless you explicitly say "Canva Pro required."</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">4</div><div class="substep-text">Duplicate this master layout 29 times (right-click the page → "Duplicate page" in Canva). You now have 30 pages, all with the same structure. Each one will become a different template.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">5</div><div class="substep-text">Work through each page. Change the headline, change the copy placeholder text, change one visual element to match the post type. Don't redesign from scratch each time — just vary the content within your system.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">6</div><div class="substep-text">Label each page clearly — "01 - Meet the Team," "02 - Client Testimonial," etc. Buyers will see these names when they open the template. Clarity = 5-star reviews.</div><div class="substep-check">✓</div></div>
+      </div>
+      <div class="callout tip">
+        <div class="callout-label">Speed tip</div>
+        Target 4–6 templates per hour. At that pace, 30 templates takes 6–8 hours of focused work. Break it across 3 days: 10 templates Monday, 10 Wednesday, 10 Friday.
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2.2 -->
+  <div class="step" id="s7">
+    <div class="step-header" onclick="toggleStep('s7')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s7')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 2.2</div>
+        <div class="step-title">Create the vertical (1080×1350) and Story (1080×1920) versions</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>Once your 30 square templates are done, resize them for the other two formats. Canva makes this almost automatic.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text">In Canva, with your 30-page design open, click "Resize" in the top bar (requires Canva Pro). Enter 1080×1350 for vertical. Click "Copy and resize." Canva creates a new file — your layouts will need minor adjustment but the system is intact.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text">Repeat for 1080×1920 Stories. For Stories, add a bit more breathing room at the top and bottom since phones display them with UI overlays in those areas.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text">Spend 1–2 hours adjusting text sizes and spacing in the new sizes. Don't redo the designs — just make sure nothing is cut off and text is readable.</div><div class="substep-check">✓</div></div>
+      </div>
+      <p>You now have 3 Canva files: Square (30 pages), Vertical (30 pages), Story (30 pages) = 90 templates total. This is what you're selling.</p>
+    </div>
+  </div>
+
+  <!-- STEP 2.3 -->
+  <div class="step" id="s8">
+    <div class="step-header" onclick="toggleStep('s8')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s8')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 2.3</div>
+        <div class="step-title">Create your delivery file — the PDF that links buyers to your templates</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>Here's the slightly weird part about selling Canva templates: you can't upload a Canva file directly. Instead, you generate a "share link" and put it in a PDF. When buyers download your PDF, they click the link, which copies your template into their own Canva account.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text">In Canva, open your Square templates file. Click "Share" (top right) → "Template link" → "Create template link." Copy the link. This is a special link that lets buyers duplicate — not edit — your original. Their edits stay in their copy, not yours.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text">Repeat for the Vertical file and the Story file. You'll have 3 links total.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text">Create a new Canva design — any size, it'll be a PDF. Design a simple "Welcome" document with: your logo, the product name, a brief "How to use" paragraph (3–4 sentences explaining how to click the link), then the 3 clickable links labeled clearly (Square Templates, Vertical Templates, Story Templates).</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">4</div><div class="substep-text">Download this welcome document as a PDF. This is your delivery file. When someone buys from you, they get this PDF, they click the links, done.</div><div class="substep-check">✓</div></div>
+      </div>
+      <div class="callout warn">
+        <div class="callout-label">Test it yourself first</div>
+        Before selling anything, click your own template links from a different browser where you're NOT logged into Canva. Make sure the link works and the templates open correctly. If it doesn't work for you, it won't work for your buyers.
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2.4 -->
+  <div class="step" id="s9">
+    <div class="step-header" onclick="toggleStep('s9')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s9')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 2.4</div>
+        <div class="step-title">Create your product mockup images — 5 images for your listings</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>Nobody can see your templates until after they buy. Mockup images are what sells the product. You need at least 5 images that show buyers exactly what they're getting and make it look professional.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text">In Canva, search "mockup" or "digital product mockup." Find a template that shows a phone or laptop screen. Put screenshots of your templates inside the device screens.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text">Image 1: A "hero" image showing 4–6 of your best-looking templates in a clean grid on a neutral background. This is the image people see first in search results.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text">Image 2: A close-up of 2–3 templates showing the actual text and design quality clearly.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">4</div><div class="substep-text">Image 3: A "what's included" graphic — text listing the contents (30 templates, 3 sizes, 90 files, instant download).</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">5</div><div class="substep-text">Image 4: A phone mockup showing the Story size template — helps buyers visualize using it.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">6</div><div class="substep-text">Image 5: A "before/after" graphic or a short 3-step "how it works" visual: 1) Download → 2) Click template link → 3) Edit and post.</div><div class="substep-check">✓</div></div>
+      </div>
+      <div class="callout tip">
+        <div class="callout-label">Free mockup resource</div>
+        Search "free canva phone mockup" or use Creative Fabrica's free mockups. Smartmockups.com also has a free tier. You do not need to buy anything.
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <h3>Phase 2 complete when...</h3>
+    <div class="summary-row"><span class="s-label">30 square templates built</span><span class="s-val">In Canva, labeled, consistent style</span></div>
+    <div class="summary-row"><span class="s-label">Vertical + Story versions done</span><span class="s-val">90 total templates</span></div>
+    <div class="summary-row"><span class="s-label">PDF delivery file created</span><span class="s-val">With 3 template links, tested</span></div>
+    <div class="summary-row"><span class="s-label">5 mockup images ready</span><span class="s-val">Saved as JPG/PNG, listing-ready</span></div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PHASE 3 — LAUNCH
+═══════════════════════════════════════════ -->
+<div class="phase-block p3" id="phase-3">
+  <div class="phase-header">
+    <div class="phase-num">3</div>
+    <div class="phase-meta">
+      <div class="phase-label">Phase 3</div>
+      <h2>Launch —<br><em>get it live and in front of people</em></h2>
+      <div class="phase-time">Week 3 · ~5 hours total · Your goal: first sale within 14 days</div>
+    </div>
+  </div>
+
+  <div class="phase-intro">Launching is not "going live on Etsy and waiting." Launching is listing the product AND immediately driving traffic to it. The stores that fail are the ones that listed and waited. The stores that win listed and then went to work on distribution the same day.</div>
+
+  <!-- STEP 3.1 -->
+  <div class="step" id="s10">
+    <div class="step-header" onclick="toggleStep('s10')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s10')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 3.1</div>
+        <div class="step-title">List your product on Gumroad — this is your primary store</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>Gumroad first, Etsy second. Gumroad has zero listing fees, and every LinkedIn post and Pinterest pin will link here where you keep 90% of the sale price.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text">Log into gumroad.com. Click "New product." Choose "Digital product."</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text">Name: "The Service Business Social Starter Pack — 90 Done-For-You Canva Templates"</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text">Price: $47. Do not lower this to seem competitive. You're not competing on price.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">4</div><div class="substep-text">Description: Paste the product description you wrote in Phase 1, Step 1.5. Use the exact words you found in Etsy reviews for what buyers love.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">5</div><div class="substep-text">Upload the PDF delivery file you created in Phase 2, Step 2.3.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">6</div><div class="substep-text">Upload your 5 mockup images as the product gallery.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">7</div><div class="substep-text">Click "Publish." Your product is live. Copy the URL — you'll use it everywhere.</div><div class="substep-check">✓</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3.2 -->
+  <div class="step" id="s11">
+    <div class="step-header" onclick="toggleStep('s11')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s11')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 3.2</div>
+        <div class="step-title">List on Etsy — optimize for search so buyers find you without you doing anything</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>Etsy is a search engine. Buyers type what they want, Etsy shows them listings. Your listing title, tags, and description determine whether Etsy shows YOUR listing or someone else's. This takes 45 minutes to do right.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text">In your Etsy shop, click "Add a listing." Choose "Digital download."</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text">Title (140 characters max): Start with your most searchable keywords. Example: "Small Business Social Media Templates Canva — 90 Done-For-You Instagram Templates for Service Business Owners" — keywords first, description second.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text">Tags (13 slots — use every single one): "social media templates," "canva templates," "small business templates," "instagram templates," "service business," "canva social media," "done for you templates," "business owner templates," "instagram canva," "small business marketing," "social media bundle," "canva instagram," "editable templates"</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">4</div><div class="substep-text">Description: First paragraph is your most important — Etsy shows only the first few lines in search. Start with: "Tired of staring at a blank screen wondering what to post? These 90 done-for-you Canva templates are designed for service business owners who want to show up professionally on social media without spending hours designing."</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">5</div><div class="substep-text">Upload your PDF file to the "Digital files" section at the bottom. Etsy will auto-deliver this to buyers after purchase.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">6</div><div class="substep-text">Set price to $47. Click "Publish." Pay the $0.20 listing fee. You're live on Etsy.</div><div class="substep-check">✓</div></div>
+      </div>
+      <div class="callout info">
+        <div class="callout-label">Etsy SEO note</div>
+        Etsy rewards listings that get sales quickly after publishing. This is why you need to drive external traffic to your Etsy listing the day you publish — it signals to Etsy's algorithm that your listing converts, which boosts your organic rank over time.
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3.3 -->
+  <div class="step" id="s12">
+    <div class="step-header" onclick="toggleStep('s12')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s12')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 3.3</div>
+        <div class="step-title">Create your free lead magnet — 5 free templates in exchange for an email address</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>Your email list is worth more than any single sale. Give away 5 of your templates for free to anyone who gives you their email. Those people are warm leads — they already want what you make. A percentage of them will buy the full pack.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text">Pick 5 of your best templates from the pack. Create a separate Canva file with just those 5 and their 3 sizes (15 templates total).</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text">Generate template share links for these 5. Create a simpler PDF delivery file — same format as before, but labeled "FREE Starter Pack."</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text">In Kit (kit.com), click "Grow" → "Landing pages." Create a landing page. Title: "Get 5 Free Social Media Templates." Body: one sentence about what they'll get. Email field. Submit button. That's it. Kit auto-sends the PDF when someone signs up.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">4</div><div class="substep-text">In Kit, set up an automation: when someone subscribes → send welcome email with the PDF attached → 3 days later send email 2 (a tip about using templates) → 7 days later send email 3 (soft pitch for the full $47 pack with your Gumroad link).</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">5</div><div class="substep-text">Copy your Kit landing page URL. This URL goes everywhere — your LinkedIn bio, Pinterest pins, Etsy shop announcement.</div><div class="substep-check">✓</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3.4 -->
+  <div class="step" id="s13">
+    <div class="step-header" onclick="toggleStep('s13')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s13')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 3.4</div>
+        <div class="step-title">Post on LinkedIn — your first 3 posts that drive traffic without selling</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>LinkedIn is where your $97–197 buyers live. These are people who respect credentials and pay for things that save them time. Your 18 years of ops experience is legitimate authority here. Don't waste it by posting "buy my templates."</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text"><strong>Post 1 — The origin story:</strong> Write 150–250 words. Start with the problem: "After 18 years in operations, I kept watching talented service business owners struggle with one thing that had nothing to do with their actual skill: showing up consistently on social media." Tell what you built. End with: "I put together 5 free templates to get started — link in comments." Post the Kit landing page link in the first comment.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text"><strong>Post 2 (3 days later) — The framework post:</strong> Write a list post. "5 types of posts every service business should be making (and most aren't)." Make each one a line. This gets shared. End with: "I designed templates for all 5. Free in the comments."</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text"><strong>Post 3 (3 days later) — The specific insight:</strong> Share one real ops lesson that applies to social media. "The same principle that makes a great SOP makes a great social media template: it should be so clear that someone else can execute it without asking you a question." This positions you as a thinker, not a template seller.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">4</div><div class="substep-text">On each post: reply to every comment within 24 hours. LinkedIn's algorithm rewards comment engagement heavily. One comment-heavy post can get 10x the reach of a silent one.</div><div class="substep-check">✓</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3.5 -->
+  <div class="step" id="s14">
+    <div class="step-header" onclick="toggleStep('s14')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s14')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 3.5</div>
+        <div class="step-title">Create 10 Pinterest pins — your long-term SEO engine starts now</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>Pinterest pins show up in Google search results and live for years. A pin you create today can still be driving traffic to your product in 2028. This is why Pinterest is non-negotiable for a template business.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text">In Canva, create 10 Pinterest pin designs (1000×1500 px). Each pin shows 1–3 of your templates with a text overlay. Example overlays: "30 Social Media Templates for Small Business," "Stop Guessing What to Post," "Done-For-You Instagram Templates."</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text">In Pinterest, create a Board called "Social Media Templates for Small Business." Make it a public board with a keyword-rich description.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text">Upload each pin. For each pin, write a description with keywords: "Small business social media templates for service businesses. 90 done-for-you Canva templates for Instagram posts, stories, and reels. Perfect for business owners who want to post consistently without spending hours designing."</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">4</div><div class="substep-text">The link on each pin: alternate between your Gumroad product link and your Kit free templates landing page. Half the pins drive to free → email list. Half drive directly to paid product.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">5</div><div class="substep-text">Don't post all 10 at once. Space them over 5 days — 2 per day. Pinterest favors accounts that post consistently over time rather than in bursts.</div><div class="substep-check">✓</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <h3>Phase 3 complete when...</h3>
+    <div class="summary-row"><span class="s-label">Gumroad listing live</span><span class="s-val">$47, with PDF + images</span></div>
+    <div class="summary-row"><span class="s-label">Etsy listing live</span><span class="s-val">$47, SEO-optimized</span></div>
+    <div class="summary-row"><span class="s-label">Free lead magnet live</span><span class="s-val">Kit landing page + 3-email sequence</span></div>
+    <div class="summary-row"><span class="s-label">3 LinkedIn posts published</span><span class="s-val">Value first, soft CTA last</span></div>
+    <div class="summary-row"><span class="s-label">10 Pinterest pins live</span><span class="s-val">Spread over 5 days</span></div>
+    <div class="summary-row"><span class="s-label">First sale</span><span class="s-val">Target: within 14 days of launch</span></div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PHASE 4 — CONTENT ENGINE
+═══════════════════════════════════════════ -->
+<div class="phase-block p4" id="phase-4">
+  <div class="phase-header">
+    <div class="phase-num">4</div>
+    <div class="phase-meta">
+      <div class="phase-label">Phase 4</div>
+      <h2>The content engine —<br><em>traffic that compounds</em></h2>
+      <div class="phase-time">Weeks 4–12 · 4–6 hours/week ongoing · This is the business, not the product</div>
+    </div>
+  </div>
+
+  <div class="phase-intro">The product makes one sale. The content engine makes the same sale 1,000 times. This phase is about building systems that drive traffic to your products on autopilot. Everything you do here stacks — each pin, each post, each email builds on the last.</div>
+
+  <!-- STEP 4.1 -->
+  <div class="step" id="s15">
+    <div class="step-header" onclick="toggleStep('s15')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s15')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 4.1</div>
+        <div class="step-title">Set up your weekly rhythm — the exact schedule that keeps this manageable</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>You have a job search, a notary business, and a life. This business will die if it requires heroic effort every week. Here is the minimum effective dose — the least you can do while still growing.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">Mon</div><div class="substep-text"><strong>Monday, 30 min:</strong> Batch-create 5 Pinterest pins in Canva. Schedule them to post through the week using Pinterest's built-in scheduler (free).</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">Wed</div><div class="substep-text"><strong>Wednesday, 30 min:</strong> Write and post 1 LinkedIn post. Respond to all comments from Monday's pin activity.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">Fri</div><div class="substep-text"><strong>Friday, 20 min:</strong> Check Etsy stats and Gumroad sales. Note which listings got views. Respond to any buyer messages within 24 hours (this protects your seller rating).</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">Sat</div><div class="substep-text"><strong>Saturday, 1–2 hrs (every other week):</strong> Build new templates or create a new product. This is your growth time. Don't do it every week — sustainable pace wins.</div><div class="substep-check">✓</div></div>
+      </div>
+      <div class="callout tip">
+        <div class="callout-label">The rule</div>
+        If you miss a week, come back and do one pin and one LinkedIn post. Don't try to "catch up" — just continue from where you are. Momentum matters more than perfection.
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4.2 -->
+  <div class="step" id="s16">
+    <div class="step-header" onclick="toggleStep('s16')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s16')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 4.2</div>
+        <div class="step-title">Build your second product — the $97–197 premium kit</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>Once your first product is live and getting any traction at all — even 2–3 sales — build the second product. This is the higher-priced offer that makes the math work. At $197, you need 43 fewer sales per month to hit the same revenue.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text"><strong>Product concept:</strong> "The Real Estate & Notary Social Media System" OR "The Ops Professional Content Kit" — whichever aligns more with where you want to go. 50 templates + a written "Social Media Strategy in a Day" guide. Price: $147–197.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text">Follow the same build process as Phase 2. This time you can be faster — you already have a system, a brand kit, and a delivery format that works.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text">Add a written component to justify the higher price. A 5–8 page PDF guide titled "Your First 30 Days of Content: A Social Media Plan for Service Business Owners." This elevates it from "templates" to "system." You can write this in 2–3 hours from your own experience.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">4</div><div class="substep-text">List this on Gumroad first. This product is primarily for your LinkedIn audience — link to it from LinkedIn posts, NOT from Etsy SEO (Etsy buyers aren't the $197 buyer).</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">5</div><div class="substep-text">In your Kit email welcome sequence, add this as an upsell in email 3: "If you want the full system — 50 templates plus a written 30-day strategy guide — I built that too. It's $147 and it's at [Gumroad link]."</div><div class="substep-check">✓</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4.3 -->
+  <div class="step" id="s17">
+    <div class="step-header" onclick="toggleStep('s17')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s17')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 4.3</div>
+        <div class="step-title">Optimize what's working — the monthly 30-minute review</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>Once a month, spend 30 minutes doing this review. It tells you where to put more energy and where to stop wasting it.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text"><strong>Etsy Stats:</strong> In your Etsy shop, go to Stats. Which listings got the most views? Which converted (views → sales)? If a listing gets views but no sales, your images or price need work. If it gets no views, your SEO title/tags need work.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text"><strong>Pinterest Analytics:</strong> In your Pinterest business account, go to Analytics → Overview. Which pins got the most outbound clicks? Make 3 more pins that look similar to your top performer.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text"><strong>Kit (email):</strong> How many new subscribers this month? What's the open rate on email 3 (the paid pitch)? If it's below 20%, rewrite the subject line. If it's above 20%, leave it alone.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">4</div><div class="substep-text"><strong>LinkedIn:</strong> Which post got the most views and reactions? Write a similar one next month. Which post got nothing? Note the format or topic and don't repeat it.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">5</div><div class="substep-text">Write down your month's revenue in a spreadsheet: Gumroad + Etsy + any direct sales. Track this every month. Watching the number grow is motivating. Watching it stall tells you something needs to change.</div><div class="substep-check">✓</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4.4 -->
+  <div class="step" id="s18">
+    <div class="step-header" onclick="toggleStep('s18')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s18')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 4.4</div>
+        <div class="step-title">Get your first 5 reviews — this changes everything</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>On Etsy, reviews are everything. A listing with 0 reviews and a listing with 20 reviews are entirely different products in a buyer's eyes. Getting your first 5 reviews as fast as possible is a real strategic priority.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text">When someone buys from Etsy, Etsy sends them a review request automatically. But you can accelerate this: send a short personal message through Etsy's messaging 7 days after purchase: "Hi [name], I hope you're enjoying the templates! If you have a moment, a review helps more than you know. Thank you!"</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text">If you have professional contacts who are service business owners, consider offering them the templates free in exchange for an honest review. Do this for your first 3–5 buyers to seed your reviews. Don't do it for 50 — just enough to get past zero.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text">When a review comes in, respond to it publicly: "Thank you so much, [name]! So glad these are useful for your business." This shows future buyers that you're attentive and real.</div><div class="substep-check">✓</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <h3>Phase 4 milestones</h3>
+    <div class="summary-row"><span class="s-label">Month 1–2 target</span><span class="s-val">$300–700/month</span></div>
+    <div class="summary-row"><span class="s-label">Month 3 target</span><span class="s-val">$1,000–1,500/month</span></div>
+    <div class="summary-row"><span class="s-label">Email list target</span><span class="s-val">200+ subscribers by month 3</span></div>
+    <div class="summary-row"><span class="s-label">Etsy reviews</span><span class="s-val">5+ reviews within 60 days</span></div>
+    <div class="summary-row"><span class="s-label">Products live</span><span class="s-val">2 (Starter Pack + Premium Kit)</span></div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PHASE 5 — SCALE
+═══════════════════════════════════════════ -->
+<div class="phase-block p5" id="phase-5">
+  <div class="phase-header">
+    <div class="phase-num">5</div>
+    <div class="phase-meta">
+      <div class="phase-label">Phase 5</div>
+      <h2>Scale to<br><em>$100k</em></h2>
+      <div class="phase-time">Months 4–12 · The math becomes real here</div>
+    </div>
+  </div>
+
+  <div class="phase-intro">Everything before this was setup. This phase is where you stop building infrastructure and start building volume. The work is less creative and more systematic: more SKUs, better distribution, and ruthless focus on what's already working.</div>
+
+  <!-- STEP 5.1 -->
+  <div class="step" id="s19">
+    <div class="step-header" onclick="toggleStep('s19')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s19')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 5.1</div>
+        <div class="step-title">Add 2–3 more products — expand the catalog strategically</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>Each new product doesn't require starting from scratch. You already have the design system, the delivery format, the mockup process, and the listing know-how. A new product now takes 4–6 hours instead of 15.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text"><strong>Product 3 — Seasonal/Timely:</strong> "The Holiday & Q4 Promotion Pack" — 20 templates for end-of-year promotions. Price: $27. Low price, fast sale, drives traffic. Launch in September.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text"><strong>Product 4 — Niche Specific:</strong> "Social Media Templates for Notaries & Loan Signing Agents." You KNOW this business. 30 templates specific to notary marketing: appointment reminders, credential announcements, client testimonials, RON explainers. Price: $47. This has zero competition on Etsy and you're the only person credible enough to make it.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text"><strong>Product 5 — The Bundle:</strong> Once you have 3+ products, create a bundle that sells all of them together for ~$97–127. This is your "best value" offer and often converts better than individual products for buyers who were going to buy two things anyway.</div><div class="substep-check">✓</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5.2 -->
+  <div class="step" id="s20">
+    <div class="step-header" onclick="toggleStep('s20')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s20')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 5.2</div>
+        <div class="step-title">Build your own website — when you're ready to own your traffic</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>Do this ONLY when you're consistently making $2,000/month or more. Not before. A website before you have proven sales is a beautiful distraction that costs you time and money you can't spare.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text">When you're ready: Go to squarespace.com or webflow.io. Squarespace is easier ($16/month). Webflow is more powerful ($14/month). Either works. Pick Squarespace if the phrase "CSS" makes you nervous.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text">Get a domain. Go to namecheap.com. Search for yourshopname.com. Buy it (~$10/year). Connect it to your website builder.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text">Your website needs 3 pages only: Home (who you are, what you sell, lead magnet signup), Shop (links to all your Gumroad products), and About (your credibility story — 18 years, 24 states, real experience). That's it.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">4</div><div class="substep-text">Connect your Kit email form to your website home page. Now every website visitor has the option to join your email list. This is the asset that makes the business durable.</div><div class="substep-check">✓</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5.3 -->
+  <div class="step" id="s21">
+    <div class="step-header" onclick="toggleStep('s21')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s21')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 5.3</div>
+        <div class="step-title">Test paid ads — when you have proof that the product converts</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>Don't run ads until you have at least 10 organic sales. Those 10 sales prove your product converts strangers into buyers. Without that proof, ads just burn money faster. With it, ads amplify what already works.</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text"><strong>Pinterest Ads first:</strong> In Pinterest Ads Manager, promote your best-performing organic pin. Start with $5/day. Let it run for 14 days. If you're getting Gumroad sales from Pinterest traffic (check your Gumroad analytics for referral source), keep the ad running. If not, pause and try a different pin.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text"><strong>Etsy Ads second:</strong> In your Etsy shop, go to Marketing → Etsy Ads. Set a $3/day budget on your top-performing listing. Etsy ads are lower risk than Facebook because buyers on Etsy already want to buy templates — you're just paying to show up first.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text">Track your cost per sale: if you spend $50 in ads and make $47 from one sale, you're losing money. Your cost per sale needs to be below your product price. Pinterest ads for template businesses often hit $5–15 cost per sale — profitable at $47+.</div><div class="substep-check">✓</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5.4 -->
+  <div class="step" id="s22">
+    <div class="step-header" onclick="toggleStep('s22')">
+      <div class="step-check" onclick="event.stopPropagation(); toggleDone('s22')">✓</div>
+      <div class="step-title-wrap">
+        <div class="step-num">Step 5.4</div>
+        <div class="step-title">The $100k checkpoint — the exact math and what it requires</div>
+      </div>
+      <div class="step-toggle">▾</div>
+    </div>
+    <div class="step-body">
+      <p>$100k/year = $8,333/month. Here is exactly how that breaks down at a realistic mix of your products:</p>
+      <div class="substeps">
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">1</div><div class="substep-text"><strong>Starter Pack ($47) × 70 sales/month</strong> = $3,290/month. At this volume, you need your Etsy listing to be ranking and Pinterest delivering steady traffic. Not unrealistic at month 6–8.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">2</div><div class="substep-text"><strong>Premium Kit ($147) × 15 sales/month</strong> = $2,205/month. These come primarily from LinkedIn and email list. 15 sales is 1 every 2 days. Achievable with 500+ email subscribers and 2 LinkedIn posts/week.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">3</div><div class="substep-text"><strong>Bundle ($97) × 20 sales/month</strong> = $1,940/month. Bundle sales come from email upsells and Etsy cross-promotion. Very achievable once you have 2+ products.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">4</div><div class="substep-text"><strong>Notary Niche Pack ($47) × 20 sales/month</strong> = $940/month. This is yours almost exclusively — almost no competition, and you can promote it directly to your notary network.</div><div class="substep-check">✓</div></div>
+        <div class="substep" onclick="toggleSub(this)"><div class="substep-num">5</div><div class="substep-text"><strong>Total: ~$8,375/month gross.</strong> After platform fees (~12%) and Canva Pro (~$13): ~$7,250 net. $87,000 net. You close the gap with one more product or a slightly higher email list. This is month 10–14, not month 3. Realistic and achievable.</div><div class="substep-check">✓</div></div>
+      </div>
+      <div class="callout danger">
+        <div class="callout-label">The one thing that kills this</div>
+        Building products without building distribution. You can have 10 products and make $0 if nobody knows they exist. The Pinterest + LinkedIn + email combination is the whole game. The product is what you sell. The distribution is the business.
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <h3>The full milestone map</h3>
+    <div class="summary-row"><span class="s-label">Day 1–7</span><span class="s-val">Foundation + accounts + plan</span></div>
+    <div class="summary-row"><span class="s-label">Day 8–14</span><span class="s-val">Build 90 templates + delivery file</span></div>
+    <div class="summary-row"><span class="s-label">Day 15–21</span><span class="s-val">Launch on Gumroad + Etsy + LinkedIn + Pinterest</span></div>
+    <div class="summary-row"><span class="s-label">Day 22–30</span><span class="s-val">First sale. Email list growing. Weekly rhythm established.</span></div>
+    <div class="summary-row"><span class="s-label">Month 2–3</span><span class="s-val">$500–1,000/month. Second product live.</span></div>
+    <div class="summary-row"><span class="s-label">Month 4–6</span><span class="s-val">$1,500–3,000/month. 3+ products. Email list 300+.</span></div>
+    <div class="summary-row"><span class="s-label">Month 7–9</span><span class="s-val">$3,000–5,000/month. Own website. Ads testing.</span></div>
+    <div class="summary-row"><span class="s-label">Month 10–14</span><span class="s-val">$8,000–$8,500/month = $100k run rate.</span></div>
+  </div>
+</div>
+
+<footer>
+  Cascade Ops Creative · The Playbook · 2026<br>
+  A working document. Check off every step. Build the machine.
+</footer>
+
+<script>
+function toggleStep(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+  updateProgress();
+}
+
+function toggleDone(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('done');
+  updateProgress();
+}
+
+function toggleSub(el) {
+  el.classList.toggle('done');
+  updateProgress();
+}
+
+function updateProgress() {
+  const allSteps = document.querySelectorAll('.step');
+  const doneSteps = document.querySelectorAll('.step.done');
+  const allSubs = document.querySelectorAll('.substep');
+  const doneSubs = document.querySelectorAll('.substep.done');
+
+  const total = allSteps.length + allSubs.length;
+  const done = doneSteps.length + doneSubs.length;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = done + ' of ' + total + ' steps complete (' + pct + '%)';
+
+  // Save to localStorage
+  const state = {};
+  document.querySelectorAll('.step').forEach(s => {
+    state['step_' + s.id] = { done: s.classList.contains('done'), open: s.classList.contains('open') };
+  });
+  document.querySelectorAll('.substep').forEach((s, i) => {
+    state['sub_' + i] = s.classList.contains('done');
+  });
+  try { localStorage.setItem('playbook_state', JSON.stringify(state)); } catch(e) {}
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem('playbook_state');
+    if (!raw) return;
+    const state = JSON.parse(raw);
+    document.querySelectorAll('.step').forEach(s => {
+      const k = 'step_' + s.id;
+      if (state[k]) {
+        if (state[k].done) s.classList.add('done');
+        if (state[k].open) s.classList.add('open');
+      }
+    });
+    document.querySelectorAll('.substep').forEach((s, i) => {
+      if (state['sub_' + i]) s.classList.add('done');
+    });
+  } catch(e) {}
+  updateProgress();
+}
+
+loadState();
+</script>
+</body>
+</html>
